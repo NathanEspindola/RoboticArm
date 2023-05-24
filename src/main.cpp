@@ -82,24 +82,26 @@ void displaySetup(void){
 
 Servo servo1;
 Servo servo2;
-//Servo servo3;
-//Servo servo4;
-//Servo servo5;
-//Servo servo6;
+Servo servo3;
+Servo servo4;
+Servo servo5;
+Servo servo6;
 
-int minUs = 500;
-int maxUs = 2500;
+int minUs1 = 500;
+int maxUs1 = 2500;
+int minUs2 = 500;
+int maxUs2 = 2500;
 
 int servo1Pin = 12;
 int servo2Pin = 13;
-//int servo3Pin = 15;
-//int servo4Pin = 27;
-//int servo5Pin = 26;
-//int servo6Pin = 25;
+int servo3Pin = 15;
+int servo4Pin = 27;
+int servo5Pin = 26;
+int servo6Pin = 25;
 
 ESP32PWM pwm;
 
-void vInitHW(void);
+//void vInitHW(void);
 
 void vInitHW(void)
 {
@@ -113,10 +115,10 @@ void vInitHW(void)
 
 	servo1.setPeriodHertz(250);   
 	servo2.setPeriodHertz(250);    
- 	//servo3.setPeriodHertz(250);    
-	//servo4.setPeriodHertz(250);    
-	//servo5.setPeriodHertz(250);    
-	//servo6.setPeriodHertz(250);    
+ 	servo3.setPeriodHertz(250);    
+	servo4.setPeriodHertz(250);    
+	servo5.setPeriodHertz(250);    
+	servo6.setPeriodHertz(250);    
 
 }
 
@@ -145,10 +147,10 @@ TaskHandle_t xTask5Handle,xTask6Handle, xTask7Handle, xTask8Handle;
 
 void vTask1(void *arg);
 void vTask2(void *arg);
-//void vTask3(void *arg);
-//void vTask4(void *arg);
-//void vTask5(void *arg);
-//void vTask6(void *arg);
+void vTask3(void *arg);
+void vTask4(void *arg);
+void vTask5(void *arg);
+void vTask6(void *arg);
 void vTask7(void *arg);
 void vTask8(void *arg);
 //void vTask9(void *arg);
@@ -164,7 +166,7 @@ void vTask1(void *arg) // Controle Servo 1
 	
 	while(1)
 	{
-		servo1.attach(servo1Pin, minUs, maxUs);
+		servo1.attach(servo1Pin, minUs1, maxUs1);
 		pwm.attachPin(27, 10000);//10khz
 
     
@@ -181,8 +183,6 @@ void vTask1(void *arg) // Controle Servo 1
         delay(20);
       }		
 
-    
-
 		servo1.detach();
 		pwm.detachPin(27);
 
@@ -198,10 +198,10 @@ void vTask2(void *arg) // Controle Servo 2
 	while(1)
 	{
 
-		servo2.attach(servo2Pin, minUs, maxUs);
+		servo2.attach(servo2Pin, minUs1, maxUs1);
 		pwm.attachPin(27, 10000);//10khz
 
-		for (int pos2 = 0; pos2 <= 180; pos2 += 1) { // sweep from 0 degrees to 180 degrees
+/*		for (int pos2 = 0; pos2 <= 180; pos2 += 1) { // sweep from 0 degrees to 180 degrees
 			servo2.write(pos2);
 			delay(20);             // waits 20ms for the servo to reach the position
 		}
@@ -210,8 +210,135 @@ void vTask2(void *arg) // Controle Servo 2
 			servo2.write(pos2);
 			delay(20);
 		}		
+*/
+		servo2.write(0);
+			delay(20);             // waits 20ms for the servo to reach the position
 
 		servo2.detach();
+		pwm.detachPin(27);
+
+   	vTaskDelay(pdMS_TO_TICKS(100));     /* Delay de 1 segundos */
+
+	}
+}
+
+void vTask3(void *arg) // Controle Servo 2
+{
+	(void) arg;
+
+	while(1)
+	{
+
+		servo3.attach(servo3Pin, minUs1, maxUs1);
+		pwm.attachPin(27, 10000);//10khz
+
+/*		for (int pos2 = 0; pos2 <= 180; pos2 += 1) { // sweep from 0 degrees to 180 degrees
+			servo2.write(pos2);
+			delay(20);             // waits 20ms for the servo to reach the position
+		}
+
+		for (int pos2 = 180; pos2 >= 0; pos2 -= 1) { // sweep from 180 degrees to 0 degrees
+			servo2.write(pos2);
+			delay(20);
+		}		
+*/
+		servo3.write(0);
+			delay(20);             // waits 20ms for the servo to reach the position
+
+		servo3.detach();
+		pwm.detachPin(27);
+
+   	vTaskDelay(pdMS_TO_TICKS(100));     /* Delay de 1 segundos */
+
+	}
+}
+
+void vTask4(void *arg) // Controle Servo 2
+{
+	(void) arg;
+
+	while(1)
+	{
+
+		servo4.attach(servo4Pin, minUs2, maxUs2);
+		pwm.attachPin(27, 10000);//10khz
+
+/*		for (int pos2 = 0; pos2 <= 180; pos2 += 1) { // sweep from 0 degrees to 180 degrees
+			servo2.write(pos2);
+			delay(20);             // waits 20ms for the servo to reach the position
+		}
+
+		for (int pos2 = 180; pos2 >= 0; pos2 -= 1) { // sweep from 180 degrees to 0 degrees
+			servo2.write(pos2);
+			delay(20);
+		}		
+*/
+		servo4.write(0);
+			delay(20);             // waits 20ms for the servo to reach the position
+
+		servo4.detach();
+		pwm.detachPin(27);
+
+   	vTaskDelay(pdMS_TO_TICKS(100));     /* Delay de 1 segundos */
+
+	}
+}
+
+void vTask5(void *arg) // Controle Servo 2
+{
+	(void) arg;
+
+	while(1)
+	{
+
+		servo5.attach(servo5Pin, minUs2, maxUs2);
+		pwm.attachPin(27, 10000);//10khz
+
+/*		for (int pos2 = 0; pos2 <= 180; pos2 += 1) { // sweep from 0 degrees to 180 degrees
+			servo2.write(pos2);
+			delay(20);             // waits 20ms for the servo to reach the position
+		}
+
+		for (int pos2 = 180; pos2 >= 0; pos2 -= 1) { // sweep from 180 degrees to 0 degrees
+			servo2.write(pos2);
+			delay(20);
+		}		
+*/
+		servo5.write(0);
+			delay(20);             // waits 20ms for the servo to reach the position
+
+		servo5.detach();
+		pwm.detachPin(27);
+
+   	vTaskDelay(pdMS_TO_TICKS(100));     /* Delay de 1 segundos */
+
+	}
+}
+
+void vTask6(void *arg) // Controle Servo 2
+{
+	(void) arg;
+
+	while(1)
+	{
+
+		servo6.attach(servo6Pin, minUs2, maxUs2);
+		pwm.attachPin(27, 10000);//10khz
+
+/*		for (int pos2 = 0; pos2 <= 180; pos2 += 1) { // sweep from 0 degrees to 180 degrees
+			servo2.write(pos2);
+			delay(20);             // waits 20ms for the servo to reach the position
+		}
+
+		for (int pos2 = 180; pos2 >= 0; pos2 -= 1) { // sweep from 180 degrees to 0 degrees
+			servo2.write(pos2);
+			delay(20);
+		}		
+*/
+		servo6.write(0);
+			delay(20);             // waits 20ms for the servo to reach the position
+
+		servo6.detach();
 		pwm.detachPin(27);
 
    	vTaskDelay(pdMS_TO_TICKS(100));     /* Delay de 1 segundos */
@@ -281,14 +408,14 @@ void setup()
 	ultrasonicSetup();
 
 	// Endereço da Task1, Identificação da Task, Bytes Disponibilizados para Task1, Permite Enviar um Parametro para Task, Prioridade (pode ser de 1 a 5), Handler
-	xTaskCreate(vTask1, "servo1", configMINIMAL_STACK_SIZE + 1048, NULL, 3, &xTask1Handle);
-	xTaskCreate(vTask2, "servo2", configMINIMAL_STACK_SIZE + 1048, NULL, 3, &xTask2Handle);
-  //xTaskCreate(vTask3, "servo3", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask3Handle);
-	//xTaskCreate(vTask4, "servo4", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask4Handle);
-	//xTaskCreate(vTask5, "servo5", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask5Handle);
-	//xTaskCreate(vTask6, "servo6", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask6Handle);
+	xTaskCreate(vTask1, "servo1", configMINIMAL_STACK_SIZE + 1048, NULL, 2, &xTask1Handle);
+	xTaskCreate(vTask2, "servo2", configMINIMAL_STACK_SIZE + 1048, NULL, 2, &xTask2Handle);
+    xTaskCreate(vTask3, "servo3", configMINIMAL_STACK_SIZE + 1048, NULL, 2, &xTask3Handle);
+	xTaskCreate(vTask4, "servo4", configMINIMAL_STACK_SIZE + 1048, NULL, 3, &xTask4Handle);
+	xTaskCreate(vTask5, "servo5", configMINIMAL_STACK_SIZE + 1048, NULL, 3, &xTask5Handle);
+	xTaskCreate(vTask6, "servo6", configMINIMAL_STACK_SIZE + 1048, NULL, 3, &xTask6Handle);
 	xTaskCreate(vTask7, "Display", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask7Handle);
-  xTaskCreate(vTask8, "Ultrasonic", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask8Handle);
+  	xTaskCreate(vTask8, "Ultrasonic", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask8Handle);
   //xTaskCreate(vTask9, "MQTT", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask9Handle);
 }
 

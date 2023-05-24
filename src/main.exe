@@ -1,0 +1,300 @@
+# 1 "C:\\Users\\natha\\Documents\\PlatformIO\\Projects\\RoboticArm\\src\\main.cpp"
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+
+ 
+
+TFT_eSPI tft = TFT_eSPI();   
+
+boolean initial = 1;
+byte xcolon = 0;
+unsigned int colour = 0;
+
+void displaySetup(void){
+
+	tft.init();
+	tft.setRotation(0);
+	tft.fillScreen(TFT_BLACK);
+
+	tft.setTextColor(TFT_YELLOW, TFT_BLACK);  
+}
+
+ 
+
+Servo servo1;
+Servo servo2;
+ 
+ 
+ 
+ 
+
+int minUs = 500;
+int maxUs = 2500;
+
+int servo1Pin = 12;
+int servo2Pin = 13;
+ 
+ 
+ 
+ 
+
+ESP32PWM pwm;
+
+ 
+
+void vInitHW(void)
+{
+	Serial.begin(115200);
+
+	 
+	ESP32PWM::allocateTimer(0);
+	ESP32PWM::allocateTimer(1);
+	ESP32PWM::allocateTimer(2);
+	ESP32PWM::allocateTimer(3);
+
+	servo1.setPeriodHertz(250);   
+	servo2.setPeriodHertz(250);    
+ 	 
+	 
+	 
+	 
+
+}
+
+ 
+
+const int echoPin = 21;
+const int trigPin = 22;
+
+
+
+long duration;
+float distance;
+
+void ultrasonicSetup(void)
+{
+  pinMode(trigPin, OUTPUT);  
+  pinMode(echoPin, INPUT);  
+}
+
+ 
+
+TaskHandle_t xTask1Handle,xTask2Handle, xTask3Handle, xTask4Handle;
+TaskHandle_t xTask5Handle,xTask6Handle, xTask7Handle, xTask8Handle;
+ 
+
+
+void vTask1(void *arg);
+void vTask2(void *arg);
+ 
+ 
+ 
+ 
+void vTask7(void *arg);
+void vTask8(void *arg);
+ 
+
+
+void loop() { 
+    vTaskDelay(pdMS_TO_TICKS(3000));     
+}
+
+void vTask1(void *arg)  
+{
+	(void) arg;
+	
+	while(1)
+	{
+		servo1.attach(servo1Pin, minUs, maxUs);
+		pwm.attachPin(27, 10000); 
+
+    
+
+      if (distance <= 10)
+      {
+        servo1.write(0);
+        delay(20);              
+      }
+
+      if (distance > 10) 
+      {
+        servo1.write(90);
+        delay(20);
+      }		
+
+    
+
+		servo1.detach();
+		pwm.detachPin(27);
+
+    vTaskDelay(pdMS_TO_TICKS(100));      
+
+	}
+}
+
+void vTask2(void *arg)  
+{
+	(void) arg;
+
+	while(1)
+	{
+
+		servo2.attach(servo2Pin, minUs, maxUs);
+		pwm.attachPin(27, 10000); 
+
+		for (int pos2 = 0; pos2 <= 180; pos2 += 1) {  
+			servo2.write(pos2);
+			delay(20);              
+		}
+
+		for (int pos2 = 180; pos2 >= 0; pos2 -= 1) {  
+			servo2.write(pos2);
+			delay(20);
+		}		
+
+		servo2.detach();
+		pwm.detachPin(27);
+
+   	vTaskDelay(pdMS_TO_TICKS(100));      
+
+	}
+}
+
+void vTask7(void *arg)  
+{
+	(void) arg;
+
+	while(1)
+	{
+     
+    float updatecm;
+
+    if(distance != updatecm)
+    {
+      tft.setTextColor(0x39C4, TFT_BLACK);   
+      tft.drawString("8888", 0, 75, 7);  
+    }
+
+    tft.setTextColor(TFT_GREEN, TFT_BLACK);
+    tft.drawNumber(distance, 0, 75, 7);
+    updatecm = distance;
+
+    vTaskDelay(pdMS_TO_TICKS(10));      
+  }
+}
+
+void vTask8(void *arg)  
+{
+	(void) arg;
+
+	while(1)
+	{
+     
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+     
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    
+     
+    duration = pulseIn(echoPin, HIGH);
+    
+     
+    float distanceCm = duration * 0.034 /2;
+
+    distance = distanceCm;
+
+     
+    Serial.print("Distance (cm): ");
+    Serial.println(distanceCm);
+
+   	vTaskDelay(pdMS_TO_TICKS(100));      
+	}
+}
+
+ 
+
+void setup()
+{
+	vInitHW();
+	displaySetup();
+	ultrasonicSetup();
+
+	 
+	xTaskCreate(vTask1, "servo1", configMINIMAL_STACK_SIZE + 1048, NULL, 3, &xTask1Handle);
+	xTaskCreate(vTask2, "servo2", configMINIMAL_STACK_SIZE + 1048, NULL, 3, &xTask2Handle);
+   
+	 
+	 
+	 
+	xTaskCreate(vTask7, "Display", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask7Handle);
+  xTaskCreate(vTask8, "Ultrasonic", configMINIMAL_STACK_SIZE + 1048, NULL, 1, &xTask8Handle);
+   
+}
+
+ 
+ 
+ 
+ 
+ 
