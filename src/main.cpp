@@ -148,13 +148,13 @@ void vTask1(void *arg) // Controle Servo 1
     if (distance <= 10)
       {
         servo1.write(45);
-        delay(20);             
+        delay(80);             
       }
 
     if (distance > 10) 
       {
         servo1.write(90);
-        delay(20);
+        delay(80);
       }		
 
     vTaskDelay(pdMS_TO_TICKS(100));    
@@ -171,13 +171,13 @@ void vTask2(void *arg) // Controle Servo 2
 		if (distance <= 10)
       	{
         	servo2.write(45);
-        	delay(20);           
+        	delay(80);           
       	}
 
     	if (distance > 10) 
       	{
         	servo2.write(90);
-        	delay(20);
+        	delay(80);
       	}	
 
    	vTaskDelay(pdMS_TO_TICKS(100));    
@@ -195,13 +195,13 @@ void vTask3(void *arg) // Controle Servo 3
       if (distance <= 10)
       {
         servo3.write(45);
-        delay(20);          
+        delay(80);          
       }
 
       if (distance > 10) 
       {
         servo3.write(90);
-        delay(20);
+        delay(80);
       }	
 
    	vTaskDelay(pdMS_TO_TICKS(100));    
@@ -218,13 +218,13 @@ void vTask4(void *arg) // Controle Servo 4
 		if (distance <= 10)
       {
         servo4.write(90);
-        delay(20);      
+        delay(80);      
       }
 
       if (distance > 10) 
       {
         servo4.write(135);
-        delay(20);
+        delay(80);
       }	
 
    	vTaskDelay(pdMS_TO_TICKS(100));   
@@ -241,13 +241,13 @@ void vTask5(void *arg) // Controle Servo 5
       if (distance <= 10)
       {
         servo5.write(45);
-        delay(20);    
+        delay(80);    
       }
 
       if (distance > 10) 
       {
         servo5.write(90);
-        delay(20);
+        delay(80);
       }	
 
    	vTaskDelay(pdMS_TO_TICKS(100));    
@@ -261,17 +261,21 @@ void vTask6(void *arg) // Controle Servo 6
 
 	while(1)
 	{
-		      if (distance <= 10)
-      {
-        servo6.write(135);
-        delay(20);            
-      }
+		if (distance <= 10)
+		{
+        	for (int pos6 = 90; pos6 <= 135; pos6 += 1) { // sweep from 0 degrees to 180 degrees
+			servo6.write(pos6);
+			delay(40);             // waits 20ms for the servo to reach the position
+			}	            
+      	}
 
-      if (distance > 10) 
-      {
-        servo6.write(90);
-        delay(20);
-      }	
+    	if (distance > 10) 
+		{
+			for (int pos6 = 135; pos6 >= 90; pos6 -= 1) { // sweep from 180 degrees to 0 degrees
+			servo6.write(pos6);
+			delay(40);
+			}
+      	}	
 
    	vTaskDelay(pdMS_TO_TICKS(100));  
 
