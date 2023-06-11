@@ -57,7 +57,7 @@ void displaySetup(void)
 	tft.setTextColor(TFT_YELLOW, TFT_BLACK); 
 }
 
-// BUTTON
+// BUTTON ================================================================
 
 int ButtonPin = 0;
 bool ButtonState = 0;
@@ -67,7 +67,7 @@ void ButtonConfig()
 	pinMode(ButtonPin, INPUT_PULLUP);
 }
 
-// OPENCV
+// OPENCV ================================================================
 
 char number[50];
 char c;
