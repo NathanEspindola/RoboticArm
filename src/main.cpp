@@ -293,7 +293,7 @@ void vTask3(void *arg) // Controle Servo 3
 
 		else if (ButtonState == 1)
 		{
-			servo3.write(90);
+			servo3.write(0);
 			delay(20);
 		}
 		
@@ -419,7 +419,7 @@ void vTask6(void *arg) // Controle Servo 6
 	
 			else
 			{
-				servo6.write(0);
+				servo6.write(130);
 				delay(20);
 			}
 		}
