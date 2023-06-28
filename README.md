@@ -7,7 +7,7 @@ This project was developed using MS VSCODE to program the ESP32 with C Language 
 Main code at src folder -> main.cpp
 
 # Gesture Recognition Python Language
-Main code at Python_Robotic ArmGesture -> main.py
+Main code at Python_Robotic ArmGesture folder -> main.py
 
 Python Packages Version:
 - cvzone 1.1
