@@ -16,16 +16,16 @@
 
 // LEFT SIDE
 // 12 - Servo1 | GARRA
-// 13 - Servo2 | Pulso Elevação
-// 15 - Servo3 | Pulso Rotação
+// 13 - Servo2 | Elevação da Garra
+// 15 - Servo3 | Rotação da Garra
 // 2
 // 17
 // 22
 // 21
 
 // RIGHT SIDE
-// 27 - Servo4 | Cotovelo
-// 26 - Servo5 | Base Elevação
+// 27 - Servo4 | Elevação Antebraço
+// 26 - Servo5 | Elevação Braço
 // 25 - Servo6 | Base Rotativa
 // 33
 // 32
@@ -313,16 +313,16 @@ void vTask4(void *arg) // Controle Servo 4
 
 		if (ButtonState == 0)
 		{
-			for( int pos4 = 90; pos4 >= 135; pos4-- )
+			for( int pos4 = 150; pos4 >= 100; pos4-- )
 			{
 				servo4.write(pos4);
-				delay(20);
+				delay(50);
 			}
 		
-			for( int pos4 = 135; pos4 <= 90; pos4++ )
+			for( int pos4 = 100; pos4 <= 150; pos4++ )
 			{
 				servo4.write(pos4);
-				delay(20);
+				delay(50);
 			}   
 		}
 
@@ -331,11 +331,14 @@ void vTask4(void *arg) // Controle Servo 4
 			if (servoRing == 1)
 			{  
 				servo4.write(90);
+				delay(50);
+
 			}   
 			
 			else
 			{
 				servo4.write(135);
+				delay(50);
 			}
 		}
 
@@ -356,13 +359,13 @@ void vTask5(void *arg) // Controle Servo 5
 			for( int pos5 = 60; pos5 <= 90; pos5++ )
 			{
 				servo5.write(pos5);
-				delay(20);
+				delay(50);
 			}
 		
 			for( int pos5 = 90; pos5 >= 60; pos5-- )
 			{
 				servo5.write(pos5);
-				delay(20);
+				delay(50);
 			}      
 		}
 
@@ -396,16 +399,16 @@ void vTask6(void *arg) // Controle Servo 6
 
 		if (ButtonState == 0)
 		{
-			for( int pos6 = 180; pos6 >= 90; pos6-- )
+			for( int pos6 = 135; pos6 >= 60; pos6-- )
 			{
 				servo6.write(pos6);
-				delay(20);
+				delay(50);
 			}
 		
-			for( int pos6 = 90; pos6 <= 180; pos6++ )
+			for( int pos6 = 60; pos6 <= 135; pos6++ )
 			{
 				servo6.write(pos6);
-				delay(20);
+				delay(50);
 			}
 		}
 		
