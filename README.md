@@ -1,14 +1,13 @@
 # RoboticArm
+RoboticArm project presented as my computer engineering graduation final paper.
 
-RoboticArm project for my final work as a Computer Engeneering Student
-
-This project was developed using MS VSCODE for the ESP32 control with C Language Code and PyCharm for the Gesture Recognition with Python Language.
+This project was developed using MS VSCODE to program the ESP32 with C Language Code and PyCharm for the Gesture Recognition with Python Language.
 
 # ESP32 C Languange
-Main code at src folder
+Main code at src folder -> main.cpp
 
 # Gesture Recognition Python Language
-Main code at Python_Robotic ArmGesture
+Main code at Python_Robotic ArmGesture folder -> main.py
 
 Python Packages Version:
 - cvzone 1.1
